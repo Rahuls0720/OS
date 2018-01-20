@@ -1,0 +1,74 @@
+---------------------------------------------------------
+|							|
+| NOTE: Please do not just copy and paste the commands.	|
+|	Your paths differ from mine, so I've added	|
+|	ellipsis.					|
+|							|
+---------------------------------------------------------
+
+---------- GETTING PINTOS TO WORK ----------
+
+Pull from Github
+
+cd .../OSF17project-yam and run "source install.sh"
+	"You may be prompted to install qemu (x86 emulator which pintOS runs on)
+	If so, run "sudo apt-get install qemu""
+
+// ADDING GDB MACROS TO PINTOS
+vim .../OSF17project-yam/utils/pintos-gdb and
+	set the variable, "GDBMACROS_DEFAULT" as ".../OSF17project-yam/misc/gdb-macros"
+
+// MAKING THE BUILD DIRECTORY
+Run "make" in .../OSF17project-yam/userprog
+	"A build directory should have been made"
+
+// MAKING SURE PINTOS IS WORKING SO FAR
+cd into the build directory (.../OSF17project-yam/userprog/build)
+
+run "pintos run alarm-multiple"
+	"You will get a warning because we haven't setup the filesystem"
+
+
+
+---------- GETTING YOUR FILESYSTEM UP ----------
+
+// MAKE SURE YOU'RE IN THE BUILD DIRECTORY
+cd .../OSF17project-yam/userprog/build/
+
+// CREATE A DISK
+run "pintos-mkdisk --filesys-size=2 filesys.dsk"
+
+// FORMAT THE DISK
+run "pintos -f -q"
+	A qemu terminal should do stuff then exit
+
+// PUT THE "echo.c" FILE INTO THE PINTOS FILE SYSTEM
+// Make sure to run this is in .../OSF17project-yam/userprog/build/
+run "pintos -p .../OSF17project-yam/examples/echo.c -a echo -- -q"
+
+// TESTING ECHO
+// Test that echo works by running echo with 'x' as arg
+pintos -q run 'echo x'
+
+// IDK
+// Idk what this is, but the slides say to do it
+// I think it might be manually putting echo in the file sys
+// 	then running it?
+//update .../
+run "pintos --filesys-size=2 -p .../OSF17project-yam/examples/echo.c -a echo -- -f -q run 'echo x'
+
+
+
+---------- FINAL CHECK FOR PINTOS TESTS ----------
+
+// MAKE SURE YOU'RE IN THE BUILD DIRECTORY
+cd .../OSF17project-yam/userprog/build/
+
+// MAKE SURE THE PINTOS TESTS RUN AND FAIL 
+// 	KUZ WE HAVEN'T WRITTEN ANYTHING YET
+run "make check"
+	"Make sure failed test output appears in the terminal and
+	 press ^C to stop"
+
+
+CONGRATS DOOD! YOURE DONE UNTIL TUESDAY SEPT. 26 

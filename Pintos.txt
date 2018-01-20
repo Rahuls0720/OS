@@ -1,0 +1,8 @@
+To run provided test cases: go to userprog/build/ and type "make check -j" to run all the test cases (-j does it concurrently)
+To run a specific test case: pintos run <testcase>
+
+To see associated errors and grading: in userprog/build/ type "make grade"
+
+
+Cscope: "ctrl + ]" wehre it is found, "cctrl + t" last position
+GDB: pintos --gdb run <testcase>
